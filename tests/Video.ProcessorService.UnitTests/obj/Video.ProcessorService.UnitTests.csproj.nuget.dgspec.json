@@ -1,0 +1,253 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\fiap\\Hackaton\\Video.ProcessorService\\tests\\Video.ProcessorService.UnitTests\\Video.ProcessorService.UnitTests.csproj": {}
+  },
+  "projects": {
+    "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.Core\\Video.ProcessorService.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.Core\\Video.ProcessorService.Core.csproj",
+        "projectName": "Video.ProcessorService.Core",
+        "projectPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.Core\\Video.ProcessorService.Core.csproj",
+        "packagesPath": "C:\\Users\\fabiom\\.nuget\\packages\\",
+        "outputPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\fabiom\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.DataSource\\Video.ProcessorService.DataSource.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.DataSource\\Video.ProcessorService.DataSource.csproj",
+        "projectName": "Video.ProcessorService.DataSource",
+        "projectPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.DataSource\\Video.ProcessorService.DataSource.csproj",
+        "packagesPath": "C:\\Users\\fabiom\\.nuget\\packages\\",
+        "outputPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.DataSource\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\fabiom\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.Core\\Video.ProcessorService.Core.csproj": {
+                "projectPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.Core\\Video.ProcessorService.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[3.7.305.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\fiap\\Hackaton\\Video.ProcessorService\\tests\\Video.ProcessorService.UnitTests\\Video.ProcessorService.UnitTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\fiap\\Hackaton\\Video.ProcessorService\\tests\\Video.ProcessorService.UnitTests\\Video.ProcessorService.UnitTests.csproj",
+        "projectName": "Video.ProcessorService.UnitTests",
+        "projectPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\tests\\Video.ProcessorService.UnitTests\\Video.ProcessorService.UnitTests.csproj",
+        "packagesPath": "C:\\Users\\fabiom\\.nuget\\packages\\",
+        "outputPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\tests\\Video.ProcessorService.UnitTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\fabiom\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.Core\\Video.ProcessorService.Core.csproj": {
+                "projectPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.Core\\Video.ProcessorService.Core.csproj"
+              },
+              "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.DataSource\\Video.ProcessorService.DataSource.csproj": {
+                "projectPath": "C:\\fiap\\Hackaton\\Video.ProcessorService\\src\\Video.ProcessorService.DataSource\\Video.ProcessorService.DataSource.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.12.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
