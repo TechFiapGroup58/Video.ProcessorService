@@ -1,0 +1,62 @@
+name: CI - feature to develop
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, synchronize, reopened]
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - run: dotnet restore Video.ProcessorService.sln
+      - run: dotnet build Video.ProcessorService.sln --no-restore -c Release
+      - name: Test with coverage
+        run: |
+          dotnet test Video.ProcessorService.sln --no-build -c Release \
+            --collect:"XPlat Code Coverage" --results-directory ./coverage
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+      - name: Merge coverage
+        run: |
+          reportgenerator -reports:"./coverage/**/coverage.cobertura.xml" \
+            -targetdir:./coverage/report -reporttypes:Cobertura
+      - name: Enforce 80pct
+        run: |
+          RATE=$(grep -oP 'line-rate="\K[0-9.]+' ./coverage/report/Cobertura.xml | head -1)
+          PCT=$(echo "$RATE * 100" | bc)
+          echo "Coverage: ${PCT}%"
+          [ $(echo "$PCT >= 80" | bc) -eq 1 ] || { echo 'Below 80%'; exit 1; }
+  auto-merge:
+    runs-on: ubuntu-latest
+    needs: build-test
+    if: github.event.pull_request.draft == false
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - name: Check approval
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const reviews = await github.rest.pulls.listReviews({
+              owner: context.repo.owner, repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            if (!reviews.data.some(r => r.state === 'APPROVED'))
+              core.setFailed('Requires at least 1 approval.');
+      - name: Squash merge
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.pulls.merge({
+              owner: context.repo.owner, repo: context.repo.repo,
+              pull_number: context.issue.number,
+              merge_method: 'squash'
+            });

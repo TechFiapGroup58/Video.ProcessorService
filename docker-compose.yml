@@ -1,0 +1,95 @@
+name: video-processor-service
+
+services:
+  video-processor:
+    build:
+      context: .
+      dockerfile: src/Video.ProcessorService.Worker/Dockerfile
+    restart: unless-stopped
+    environment:
+      DOTNET_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=processor_service;Username=postgres;Password=${POSTGRES_PASSWORD:-postgres}
+      S3Storage__ServiceUrl: http://minio:9000
+      S3Storage__BucketName: upload-service-videos
+      S3Storage__AccessKey: ${MINIO_ROOT_USER:-minioadmin}
+      S3Storage__SecretKey: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      S3Storage__ForcePathStyle: "true"
+      RabbitMq__Host: rabbitmq
+      RabbitMq__Username: ${RABBITMQ_USER:-guest}
+      RabbitMq__Password: ${RABBITMQ_PASS:-guest}
+      RabbitMq__VirtualHost: /
+      RabbitMq__ExchangeName: upload-service
+      RabbitMq__QueueName: video-jobs
+      RabbitMq__RoutingKey: video.job.created
+      Ffmpeg__ExecutablePath: ffmpeg
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    networks: [fiapx]
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [fiapx]
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks: [fiapx]
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on: [minio]
+    entrypoint: >
+      /bin/sh -c "
+        sleep 5 &&
+        mc alias set local http://minio:9000 $${MINIO_ROOT_USER:-minioadmin} $${MINIO_ROOT_PASSWORD:-minioadmin} &&
+        mc mb local/upload-service-videos --ignore-existing"
+    networks: [fiapx]
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-guest}
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [fiapx]
+
+volumes:
+  postgres_data:
+  minio_data:
+
+networks:
+  fiapx:
+    driver: bridge
